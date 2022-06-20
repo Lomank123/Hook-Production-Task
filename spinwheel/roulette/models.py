@@ -37,9 +37,12 @@ class Spin(models.Model):
     Single spin. Has user who spinned, value and round.
     """
 
-    user = models.ForeignKey(user_model, on_delete=models.RESTRICT, verbose_name=_("User"))
-    spin_round = models.ForeignKey(Round, on_delete=models.RESTRICT, verbose_name=_("Round"))
+    user = models.ForeignKey(user_model, on_delete=models.CASCADE, verbose_name=_("User"))
+    spin_round = models.ForeignKey(Round, on_delete=models.CASCADE, verbose_name=_("Round"))
     value = models.IntegerField(verbose_name=_("Value"))
+
+    def __str__(self):
+        return f"Spin ({self.id}) Round {self.spin_round.id}"
 
     class Meta:
         ordering = ["-id"]

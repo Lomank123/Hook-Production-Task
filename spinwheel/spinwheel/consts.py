@@ -1,1 +1,2 @@
 SLOTS_NAME = "slots"
+JACKPOT_VALUE = 11
