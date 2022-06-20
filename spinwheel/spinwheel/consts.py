@@ -1,0 +1,1 @@
+SLOTS_NAME = "slots"
