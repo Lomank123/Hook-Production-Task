@@ -1,7 +1,6 @@
-from django.db import models
 from django.contrib.auth import get_user_model
+from django.db import models
 from django.utils.translation import gettext_lazy as _
-
 from spinwheel import consts
 
 
@@ -15,6 +14,7 @@ def round_jsonfield_default():
 class Round(models.Model):
     """
     Represents spinwheel round. Has remained slots and participants.
+    is_deleted serves to mark whether round has ended.
     """
 
     slots = models.JSONField(default=round_jsonfield_default, verbose_name=_("Remained slots"))
@@ -24,6 +24,7 @@ class Round(models.Model):
         related_name="participants",
         verbose_name=_("Participants")
     )
+    is_deleted = models.BooleanField(default=False, verbose_name=_("is_deleted"))
 
     class Meta:
         ordering = ["-id"]

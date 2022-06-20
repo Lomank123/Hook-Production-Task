@@ -1,7 +1,7 @@
-from django.urls import path, include
+from django.urls import include, path
 from rest_framework.routers import DefaultRouter
-from roulette import viewsets
-from roulette import views
+
+from roulette import views, viewsets
 
 
 router = DefaultRouter()
