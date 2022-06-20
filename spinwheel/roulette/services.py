@@ -17,6 +17,11 @@ class SpinWheelService:
         context = self._build_context()
         return context
 
+    def get_current_round_execute(self):
+        spin_round = RoundRepository.get_not_deleted_or_create()
+        serializer = RoundSerializer(spin_round)
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
+
 
 class StatsService:
 

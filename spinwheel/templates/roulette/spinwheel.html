@@ -6,13 +6,19 @@
 {% block content %}
 
 <div class="spin-wheel-main">
-  <p>Spin Wheel!</p>
-  <p>{{ round.id }}</p>
-  <p>{{ round.slots }}</p>
+  <p>Press "Spin" button to get the number</p>
+
+  <p id="round-number">Round #</p>
+
+  <div class="spin-value-block">
+    <p>And your number is...</p>
+  </div>
+
+  <button type="button" class="spin-button">Spin</button>
 </div>
 
 {% endblock content %}
 
 {% block scripts %}
-<script src="{% static 'roulette/js/spinwheel.js' %}" />
+<script src="{% static 'roulette/js/spinwheel.js' %}"></script>
 {% endblock scripts %}
