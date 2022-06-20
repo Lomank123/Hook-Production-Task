@@ -1,0 +1,16 @@
+{% extends 'layout/base.html' %}
+{% load static %}
+
+{% block title %}Home page{% endblock title %}
+
+{% block content %}
+
+<div class="spin-wheel-main">
+  <p>Spin Wheel!</p>
+</div>
+
+{% endblock content %}
+
+{% block scripts %}
+<script src="{% static 'roulette/js/spinwheel.js' %}" />
+{% endblock scripts %}
