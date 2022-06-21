@@ -13,18 +13,12 @@ def round_jsonfield_default():
 
 class Round(models.Model):
     """
-    Represents spinwheel round. Has remained slots and participants.
+    Represents spinwheel round. Has remained slots.
     is_deleted serves to mark whether round has ended.
     """
 
     slots = models.JSONField(default=round_jsonfield_default, verbose_name=_("Remained slots"))
-    participants = models.ManyToManyField(
-        user_model,
-        blank=True,
-        related_name="participants",
-        verbose_name=_("Participants")
-    )
-    is_deleted = models.BooleanField(default=False, verbose_name=_("is_deleted"))
+    is_deleted = models.BooleanField(default=False, verbose_name=_("Is deleted"))
 
     class Meta:
         ordering = ["-id"]
@@ -40,9 +34,6 @@ class Spin(models.Model):
     user = models.ForeignKey(user_model, on_delete=models.CASCADE, verbose_name=_("User"))
     spin_round = models.ForeignKey(Round, on_delete=models.CASCADE, verbose_name=_("Round"))
     value = models.IntegerField(verbose_name=_("Value"))
-
-    def __str__(self):
-        return f"Spin ({self.id}) Round {self.spin_round.id}"
 
     class Meta:
         ordering = ["-id"]
