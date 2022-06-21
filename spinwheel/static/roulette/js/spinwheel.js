@@ -1,8 +1,6 @@
-console.log("spinwheel.js");
-let roundSlots = [];
 let roundId = null;
-let activeUsersTable = $("#active-users-table");
-let userCountTable = $("#user-count-table");
+const activeUsersTable = $("#active-users-table");
+const userCountTable = $("#user-count-table");
 
 // CSRF
 function getCookie(name) {
@@ -29,7 +27,6 @@ function getCurrentRound() {
     success: (result) => {
       console.log(result);
       $("#round-number").text(`Round #${result.id}`);
-      roundSlots = result.slots.slots;
       roundId = result.id;
     },
     error: (error) => {
@@ -53,12 +50,12 @@ function getStats() {
   });
 }
 
-function updateStats(data) {
   // Clear old stats
+function clearStats() {
   activeUsersTable.empty();
   userCountTable.empty();
 
-  let c1 = $(`
+  const c1 = $(`
     <tr>
       <th>User id</th>
       <th>Round count</th>
@@ -66,7 +63,7 @@ function updateStats(data) {
     </tr>
   `)
 
-  let c2 = $(`
+  const c2 = $(`
     <tr>
       <th>Round id</th>
       <th>User count</th>
@@ -75,7 +72,10 @@ function updateStats(data) {
 
   activeUsersTable.append(c1);
   userCountTable.append(c2);
+}
 
+function updateStats(data) {
+  clearStats();
   data.active_users.forEach(element => {
     let rows = $(`
       <tr>

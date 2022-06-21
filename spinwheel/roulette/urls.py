@@ -12,5 +12,6 @@ urlpatterns = [
     path("", views.SpinWheelView.as_view(), name="spinwheel"),
     path("login/", views.CustomLoginView.as_view(), name="login"),
     path("logout/", views.CustomLogoutView.as_view(), name="logout"),
+    path("signup/", views.CustomSignupView.as_view(), name="signup"),
     path("api/", include(router.urls)),
 ]
