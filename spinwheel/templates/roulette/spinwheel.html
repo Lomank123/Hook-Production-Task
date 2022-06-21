@@ -5,6 +5,8 @@
 
 {% block content %}
 
+<h2>Spin wheel</h2>
+
 <div class="spin-wheel-main">
   <p>Press "Spin" button to get the number</p>
 
@@ -14,7 +16,33 @@
     <p id="spin-value-text">And your number is...</p>
   </div>
 
-  <button type="button" id="spin-btn">Spin</button>
+  <button type="button" id="spin-btn" class="btn btn-primary">Spin</button>
+  <button type="button" id="stats-btn" class="btn btn-primary">Get stats</button>
+</div>
+
+<p></p>
+
+<h2>Stats</h2>
+
+<div class="stats-block">
+
+  <h4>Active users:</h4>
+  <table class="table" id="active-users-table">
+    <tr>
+      <th>User id</th>
+      <th>Round count</th>
+      <th>Average spins per round</th>
+    </tr>
+  </table>
+
+  <h4>User count per round:</h4>
+  <table class="table" id="user-count-table">
+    <tr>
+      <th>Round id</th>
+      <th>User count</th>
+    </tr>
+  </table>
+
 </div>
 
 {% endblock content %}

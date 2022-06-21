@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from spinwheel import consts
 
 from roulette.repositories import RoundRepository, SpinRepository
-from roulette.serializers import RoundSerializer, SpinSerializer
+from roulette.serializers import RoundSerializer
 
 
 logger = logging.getLogger('django')
@@ -44,8 +44,16 @@ class SpinWheelService:
         value = self._perform_spin(spin_round)
         # Save spin value
         SpinRepository.create(spin_round_id=round_id, user_id=user_id, value=value)
-        return Response(data={"value": value}, status=200)
+        return Response(data={"value": value}, status=status.HTTP_200_OK)
 
 
 class StatsService:
-    pass
+
+    def get_stats_execute(self):
+        user_count_per_round = SpinRepository().get_user_count_per_round()
+        active_users = SpinRepository().get_active_users()
+        data = {
+            "user_count_per_round": user_count_per_round,
+            "active_users": active_users,
+        }
+        return Response(data=data, status=status.HTTP_200_OK)

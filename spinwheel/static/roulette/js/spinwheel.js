@@ -1,6 +1,8 @@
 console.log("spinwheel.js");
 let roundSlots = [];
 let roundId = null;
+let activeUsersTable = $("#active-users-table");
+let userCountTable = $("#user-count-table");
 
 // CSRF
 function getCookie(name) {
@@ -21,7 +23,7 @@ function getCookie(name) {
 
 function getCurrentRound() {
   $.ajax({
-    url: '/api/round/get_current_round',
+    url: '/api/spinwheel/get_current_round',
     method: 'GET',
     dataType: 'json',
     success: (result) => {
@@ -36,11 +38,72 @@ function getCurrentRound() {
   });
 }
 
+function getStats() {
+  $.ajax({
+    url: '/api/spinwheel/get_stats',
+    method: 'get',
+    dataType: 'json',
+    success: (result) => {
+      console.log(result);
+      updateStats(result);
+    },
+    error: (error) => {
+      console.log(error);
+    }
+  });
+}
+
+function updateStats(data) {
+  // Clear old stats
+  activeUsersTable.empty();
+  userCountTable.empty();
+
+  let c1 = $(`
+    <tr>
+      <th>User id</th>
+      <th>Round count</th>
+      <th>Average spins per round</th>
+    </tr>
+  `)
+
+  let c2 = $(`
+    <tr>
+      <th>Round id</th>
+      <th>User count</th>
+    </tr>
+  `)
+
+  activeUsersTable.append(c1);
+  userCountTable.append(c2);
+
+  data.active_users.forEach(element => {
+    let rows = $(`
+      <tr>
+        <td scope='row'>${element.user_id}</td>
+        <td scope='row'>${element.round_count}</td>
+        <td scope='row'>${element.avg_spins_count}</td>
+      </tr>
+    `)
+    activeUsersTable.append(rows);
+  });
+
+  data.user_count_per_round.forEach(element => {
+    console.log(element.spin_round_id)
+    let rows1 = $(`
+      <tr>
+        <td scope='row'>${element.spin_round_id}</td>
+        <td scope='row'>${element.user_count}</td>
+      </tr>
+    `)
+    userCountTable.append(rows1);
+  });
+}
+
 // Spin button
 $("#spin-btn").click(() => {
   const csrftoken = getCookie('csrftoken');
   $.ajax({
-    url: '/api/round/make_spin/',
+    url: '/api/spinwheel/make_spin/',
     method: 'POST',
     dataType: 'json',
     headers: {"X-CSRFToken": csrftoken},
@@ -54,6 +117,7 @@ $("#spin-btn").click(() => {
       } else {
         $("#spin-value-text").text(`And your number is... ${result.value}`);
       }
+      getStats();
     },
     error: (error) => {
       console.log(error);
@@ -61,4 +125,10 @@ $("#spin-btn").click(() => {
   });
 })
 
+$("#stats-btn").click(() => {
+  getStats();
+})
+
+
 getCurrentRound();
+getStats();

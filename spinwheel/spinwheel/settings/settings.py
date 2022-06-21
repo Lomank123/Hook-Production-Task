@@ -90,3 +90,14 @@ USE_I18N = True
 USE_TZ = True
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# Auth
+
+# Login
+LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = '/login/'
+
+# Logout
+LOGOUT_URL = '/logout/'
+LOGOUT_REDIRECT_URL = '/login/'
