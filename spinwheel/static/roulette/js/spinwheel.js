@@ -88,7 +88,6 @@ function updateStats(data) {
   });
 
   data.user_count_per_round.forEach(element => {
-    console.log(element.spin_round_id)
     let rows1 = $(`
       <tr>
         <td scope='row'>${element.spin_round_id}</td>
