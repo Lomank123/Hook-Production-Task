@@ -31,7 +31,7 @@ copy .env.sample .env
 
 - Запуск
 ```
-docker-compose up spinwheel
+docker-compose up django
 ```
 
 - Тесты
