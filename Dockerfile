@@ -20,4 +20,6 @@ RUN python -m venv /py && \
 
 ENV PATH="/py/bin:/py/lib:$PATH"
 
+RUN python manage.py collectstatic --noinput
+
 USER spinwheel

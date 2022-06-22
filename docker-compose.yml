@@ -12,7 +12,6 @@ services:
       "
     volumes:
       - ./spinwheel:/spinwheel
-      - django:/vol/web/static
     ports:
       - ${HTTP_PORT}:${HTTP_PORT}
     env_file: .env
@@ -39,7 +38,6 @@ services:
     command: >
       sh -c "
         python manage.py wait_for_db &&
-        python manage.py makemigrations &&
         python manage.py migrate &&
         python manage.py loaddata fixtures/dev.json
       "
@@ -60,5 +58,4 @@ services:
       - POSTGRES_PASSWORD=${DB_PASS}
 
 volumes:
-  django:
   postgres-data:
